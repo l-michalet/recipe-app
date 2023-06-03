@@ -1,5 +1,6 @@
 package micha.udemy.recipeapp.bootstrap;
 
+import lombok.extern.slf4j.Slf4j;
 import micha.udemy.recipeapp.model.Category;
 import micha.udemy.recipeapp.model.Difficulty;
 import micha.udemy.recipeapp.model.Ingredient;
@@ -18,9 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Created by jt on 6/13/17.
- */
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -36,6 +35,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        log.debug("[RecipeBoostrap] Init data");
         recipeRepository.saveAll(getRecipes());
     }
 
