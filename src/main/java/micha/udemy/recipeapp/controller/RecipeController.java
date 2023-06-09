@@ -1,6 +1,7 @@
 package micha.udemy.recipeapp.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import micha.udemy.recipeapp.command.RecipeCommand;
 import micha.udemy.recipeapp.service.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,5 +22,11 @@ public class RecipeController {
     public String showById(@PathVariable String id, Model model){
         model.addAttribute("recipe", recipeService.getRecipeById(Long.valueOf(id)));
         return "recipe/show";
+    }
+
+    @RequestMapping("/recipe/new")
+    public String newRecipe(Model model){
+        model.addAttribute("recipe", new RecipeCommand());
+        return "recipe/recipeform";
     }
 }

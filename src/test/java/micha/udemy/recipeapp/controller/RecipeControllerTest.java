@@ -1,7 +1,9 @@
 package micha.udemy.recipeapp.controller;
 
+import micha.udemy.recipeapp.command.RecipeCommand;
 import micha.udemy.recipeapp.model.Recipe;
 import micha.udemy.recipeapp.service.RecipeService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +14,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -24,16 +27,30 @@ public class RecipeControllerTest {
     @InjectMocks
     RecipeController controller;
 
+    MockMvc mockMvc;
+
+    @BeforeEach
+    public void setUp() {
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+    }
+
     @Test
     public void getRecipeById() throws Exception {
         Recipe recipe = Recipe.builder().id(1L).build();
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         when(recipeService.getRecipeById(1L)).thenReturn(recipe);
 
         mockMvc.perform(get("/recipe/show/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/show"));
+    }
+
+    @Test
+    public void getNewRecipeForm() throws Exception {
+        mockMvc.perform(get("/recipe/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/recipeform"))
+                .andExpect(model().attributeExists("recipe"));
     }
 
 }
