@@ -5,7 +5,7 @@ import micha.udemy.recipeapp.model.Ingredient;
 
 public class IngredientCommandToIngredient {
 
-    public IngredientCommand convert(Ingredient source) {
+    public Ingredient convert(IngredientCommand source) {
         return null;
     }
 
