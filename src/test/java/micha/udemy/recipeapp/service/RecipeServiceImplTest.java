@@ -41,6 +41,12 @@ class RecipeServiceImplTest {
     }
 
     @Test
+    public void getRecipeById_notFound()  {
+        when(recipeRepository.findById(1L)).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> recipeService.getRecipeById(1L));;
+    }
+
+    @Test
     void getRecipes() {
         when(recipeRepository.findAll()).thenReturn(Set.of(new Recipe()));
 
