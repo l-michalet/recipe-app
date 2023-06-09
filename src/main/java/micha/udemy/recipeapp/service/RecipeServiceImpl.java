@@ -19,6 +19,11 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    public Recipe getRecipeById(Long id) {
+        return null;
+    }
+
+    @Override
     public Set<Recipe> getRecipes() {
         log.debug("[RecipeService] Get recipes");
         Set<Recipe> recipeSet = new HashSet<>();
