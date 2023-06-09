@@ -3,10 +3,15 @@ package converters;
 import micha.udemy.recipeapp.command.IngredientCommand;
 import micha.udemy.recipeapp.command.UnitOfMeasureCommand;
 import micha.udemy.recipeapp.converter.IngredientCommandToIngredient;
+import micha.udemy.recipeapp.converter.UnitOfMeasureCommandToUnitOfMeasure;
 import micha.udemy.recipeapp.model.Ingredient;
 import micha.udemy.recipeapp.model.Recipe;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 
@@ -16,27 +21,30 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class IngredientCommandToIngredientTest {
 
-    public static final Recipe RECIPE = new Recipe();
     public static final BigDecimal AMOUNT = new BigDecimal("1");
     public static final String DESCRIPTION = "Cheeseburger";
     public static final Long ID_VALUE = 1L;
     public static final Long UOM_ID = 2L;
 
-    @InjectMocks
     IngredientCommandToIngredient converter;
 
+    @BeforeEach
+    public void setUp() {
+        converter = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure());
+    }
+
     @Test
-    public void testNullObject() throws Exception {
+    public void testNullObject() {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() throws Exception {
+    public void testEmptyObject() {
         assertNotNull(converter.convert(new IngredientCommand()));
     }
 
     @Test
-    public void convert() throws Exception {
+    public void convert() {
         //given
         IngredientCommand command = new IngredientCommand();
         command.setId(ID_VALUE);
@@ -59,14 +67,12 @@ public class IngredientCommandToIngredientTest {
     }
 
     @Test
-    public void convertWithNullUOM() throws Exception {
+    public void convertWithNullUOM() {
         //given
         IngredientCommand command = new IngredientCommand();
         command.setId(ID_VALUE);
         command.setAmount(AMOUNT);
         command.setDescription(DESCRIPTION);
-        UnitOfMeasureCommand unitOfMeasureCommand = new UnitOfMeasureCommand();
-
 
         //when
         Ingredient ingredient = converter.convert(command);
