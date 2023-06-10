@@ -30,14 +30,13 @@ public class IngredientServiceImplTest {
 
     IngredientToIngredientCommand ingredientToIngredientCommand;
 
-    @InjectMocks
-    IngredientService ingredientService;
+    IngredientServiceImpl ingredientService;
 
     @BeforeEach
     public void setUp() {
         ingredientToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
+        ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, recipeRepository);
     }
-
 
     @Test
     public void getByRecipeIdAndIngredientId() {
@@ -47,10 +46,12 @@ public class IngredientServiceImplTest {
         ingredient2.setId(2L);
         Ingredient ingredient3 = new Ingredient();
         ingredient3.setId(3L);
-        Recipe recipe = Recipe.builder()
-            .id(1L)
-            .ingredients(Set.of(ingredient1, ingredient2, ingredient3))
-            .build();
+
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        recipe.addIngredient(ingredient1);
+        recipe.addIngredient(ingredient2);
+        recipe.addIngredient(ingredient3);
         when(recipeRepository.findById(anyLong())).thenReturn(Optional.of(recipe));
 
         IngredientCommand ingredientCommand = ingredientService.findByRecipeIdAndIngredientId(1L, 3L);
