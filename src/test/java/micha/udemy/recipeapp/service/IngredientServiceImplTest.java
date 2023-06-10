@@ -41,14 +41,15 @@ public class IngredientServiceImplTest {
 
     @Test
     public void getByRecipeIdAndIngredientId() {
-        Set<Ingredient> ingredients = Set.of(
-            Ingredient.builder().id(1L).build(),
-            Ingredient.builder().id(2L).build(),
-            Ingredient.builder().id(3L).build()
-        );
+        Ingredient ingredient1 = new Ingredient();
+        ingredient1.setId(1L);
+        Ingredient ingredient2 = new Ingredient();
+        ingredient2.setId(2L);
+        Ingredient ingredient3 = new Ingredient();
+        ingredient3.setId(3L);
         Recipe recipe = Recipe.builder()
             .id(1L)
-            .ingredients(ingredients)
+            .ingredients(Set.of(ingredient1, ingredient2, ingredient3))
             .build();
         when(recipeRepository.findById(anyLong())).thenReturn(Optional.of(recipe));
 

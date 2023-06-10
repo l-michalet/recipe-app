@@ -14,7 +14,6 @@ import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 
 @Data
-@Builder
 @EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Ingredient {

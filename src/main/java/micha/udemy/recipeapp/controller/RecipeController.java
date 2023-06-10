@@ -22,13 +22,13 @@ public class RecipeController {
     }
 
     @RequestMapping("/recipe/{id}/show")
-    public String showById(@PathVariable String id, Model model) {
+    public String showRecipeById(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.getRecipeById(Long.valueOf(id)));
         return "recipe/show";
     }
 
     @RequestMapping("/recipe/new")
-    public String newRecipe(Model model) {
+    public String createRecipe(Model model) {
         model.addAttribute("recipe", new RecipeCommand());
         return "recipe/form";
     }
