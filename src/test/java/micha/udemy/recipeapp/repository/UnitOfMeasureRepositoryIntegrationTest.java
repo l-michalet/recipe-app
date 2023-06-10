@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DataJpaTest
 class UnitOfMeasureRepositoryIntegrationTest {
 
+    @Autowired
     UnitOfMeasureRepository unitOfMeasureRepository;
 
     // The context is loaded and the uoms are built and saved from the data.sql file
