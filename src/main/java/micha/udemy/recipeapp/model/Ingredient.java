@@ -1,5 +1,6 @@
 package micha.udemy.recipeapp.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,6 +14,7 @@ import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 
 @Data
+@Builder
 @EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Ingredient {
