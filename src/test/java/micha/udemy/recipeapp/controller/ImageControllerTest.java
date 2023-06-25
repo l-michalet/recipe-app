@@ -43,7 +43,9 @@ public class ImageControllerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
     }
 
     @Test
