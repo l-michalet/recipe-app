@@ -11,6 +11,7 @@ import micha.udemy.recipeapp.repository.CategoryRepository;
 import micha.udemy.recipeapp.repository.RecipeRepository;
 import micha.udemy.recipeapp.repository.UnitOfMeasureRepository;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ import java.util.Optional;
 
 @Slf4j
 @Component
+@Profile("default")
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final CategoryRepository categoryRepository;
@@ -45,7 +47,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         List<Recipe> recipes = new ArrayList<>(2);
 
-        //get UOMs
+        // Get UOMs
         Optional<UnitOfMeasure> eachUomOptional = unitOfMeasureRepository.findByDescription("Each");
         if(eachUomOptional.isEmpty()){
             throw new RuntimeException("Expected UOM Not Found");
@@ -141,6 +143,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacRecipe.getCategories().add(americanCategory);
         guacRecipe.getCategories().add(mexicanCategory);
 
+        guacRecipe.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole/");
+        guacRecipe.setServings(4);
+        guacRecipe.setSource("Simply Recipes");
+
         //add to return list
         recipes.add(guacRecipe);
 
@@ -198,6 +204,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         tacosRecipe.getCategories().add(americanCategory);
         tacosRecipe.getCategories().add(mexicanCategory);
+
+        tacosRecipe.setUrl("http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
+        tacosRecipe.setServings(4);
+        tacosRecipe.setSource("Simply Recipes");
 
         recipes.add(tacosRecipe);
         return recipes;
