@@ -3,6 +3,7 @@ package micha.udemy.recipeapp.service;
 import micha.udemy.recipeapp.command.RecipeCommand;
 import micha.udemy.recipeapp.converter.RecipeCommandToRecipe;
 import micha.udemy.recipeapp.converter.RecipeToRecipeCommand;
+import micha.udemy.recipeapp.exception.NotFoundException;
 import micha.udemy.recipeapp.model.Recipe;
 import micha.udemy.recipeapp.repository.RecipeRepository;
 import org.junit.jupiter.api.Test;
@@ -52,7 +53,7 @@ class RecipeServiceImplTest {
     @Test
     public void getRecipeById_notFound()  {
         when(recipeRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(RuntimeException.class, () -> recipeService.getRecipeById(1L));;
+        assertThrows(NotFoundException.class, () -> recipeService.getRecipeById(1L));;
     }
 
     @Test

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import micha.udemy.recipeapp.command.RecipeCommand;
 import micha.udemy.recipeapp.converter.RecipeCommandToRecipe;
 import micha.udemy.recipeapp.converter.RecipeToRecipeCommand;
+import micha.udemy.recipeapp.exception.NotFoundException;
 import micha.udemy.recipeapp.model.Recipe;
 import micha.udemy.recipeapp.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Recipe getRecipeById(Long id) {
         log.debug("[RecipeService] getRecipeById id={}", id);
-        return recipeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Recipe Not Found!"));
+        return recipeRepository.findById(id).orElseThrow(() -> new NotFoundException("Recipe Not Found id=" + id));
     }
 
     @Override
